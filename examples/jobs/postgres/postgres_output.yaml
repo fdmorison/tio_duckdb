@@ -1,0 +1,52 @@
+kind: LinearJob
+name: postgres_output_job
+description: |
+  Loads customer master data from CSV into PostgreSQL using DuckDB as the execution engine.
+  Demonstrates a simple EL pipeline with multiple outputs and environment-based credential
+  configuration via Jinja templates.
+
+owner: data@tiozin.com
+maintainer: tiozin
+cost_center: tio_scrooge
+
+org: tiozin
+region: eu
+domain: ecommerce
+subdomain: sales
+layer: raw
+product: storefront
+model: customers
+
+runner:
+  kind: DuckdbRunner
+
+inputs:
+  - kind: DuckdbFileInput
+    name: load_customers
+    description: Customer master dataset exported from the source system in CSV format.
+    path: examples/data/ecommerce/customers.csv
+    format: csv
+    header: true
+    schema_subject: auto
+
+outputs:
+  - kind: DuckdbPostgresOutput
+    name: write_to_postgres
+    description: Loads the customer dataset into the PostgreSQL table public.customers.
+    mode: merge
+    primary_key: id
+    # Table
+    schema: public
+    database: postgres
+    table: customers
+    # Connection
+    host: localhost
+    port: 5432
+    user: postgres
+    password: "{{ ENV.PGPASSWORD | default('postgres') }}"
+    # Utilities
+    pre_pgsql:
+    post_pgsql:
+      - GRANT ALL ON public.customers TO postgres
+      - CREATE INDEX IF NOT EXISTS idx_customers_email   ON public.customers(email)
+      - CREATE INDEX IF NOT EXISTS idx_customers_country ON public.customers(country)
