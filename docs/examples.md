@@ -2,7 +2,7 @@
 
 The example jobs live in [`examples/jobs/`](../examples/jobs/), and their source data lives in [`examples/data/`](../examples/data/). The Ecommerce and Shakespeare scenarios are split into two layers: ingestion jobs load the source data, and refined jobs build new datasets from it.
 
-Before running, complete the [setup in the README](../README.md#setting-up-tiozinyaml), then run every job from the repository root.
+Before running, complete the setup in [Getting Started](getting-started.md), then run every job from the repository root.
 
 ## Ecommerce
 

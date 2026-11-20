@@ -1,14 +1,30 @@
 # tio_duckdb
 
-`tio_duckdb` is the Tiozin provider family for DuckDB. It runs pipelines on a local DuckDB connection. Every step result is automatically available as a named relation for downstream SQL queries. The family is designed for single-node, in-memory or file-based workloads.
+`tio_duckdb` is the Tiozin provider family for [DuckDB](https://duckdb.org/docs/). It runs pipelines on a local DuckDB connection. Every step result is automatically available as a named relation for downstream SQL queries. The family is designed for single-node, in-memory or file-based workloads.
 
-## Installation
+A family is an installable package of Tiozin plugins that share the same runtime. See [The Family Model](https://github.com/fdmorison/tiozin/blob/main/docs/concepts/family.md) for how families fit into Tiozin.
 
-```bash
-pip install tio_duckdb
+To add the family to a project, see [Installation](installation.md). To set up the settings the example jobs use, see [Getting Started](getting-started.md).
+
+## Using the Plugins
+
+Once the package is installed, its plugins are available by class name in any job:
+
+```yaml
+runner:
+  kind: DuckdbRunner
 ```
 
-## How data flows through steps
+If another installed family defines a class with the same name, qualify the kind with the family name:
+
+```yaml
+runner:
+  kind: tio_duckdb:DuckdbRunner
+```
+
+DuckDB config options, such as `threads` and `memory_limit`, go directly in the runner. See [DuckDB config options](runner.md#duckdb-config-options).
+
+## How Data Flows Through Steps
 
 Every step in `tio_duckdb` produces a `DuckDBPyRelation`. After each step runs, the framework automatically registers that relation as a named temporary view using the step's `name` as the view name.
 
@@ -43,7 +59,7 @@ To implement a custom Input, Transform, or Output from scratch, see [Creating Pl
 
 [Examples](examples.md) lists the example jobs in this repository, which ingest and refine ecommerce and Shakespeare data on DuckDB and load customer data into PostgreSQL.
 
-## Accessing the connection
+## Accessing the Connection
 
 When writing a custom step in `tio_duckdb`, use `self.duckdb` to access the active DuckDB connection. `self` here refers to the step instance: any class that extends `DuckdbTransform`, `DuckdbCoTransform`, `DuckdbInput`, or `DuckdbOutput`.
 
