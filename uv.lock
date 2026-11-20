@@ -3354,7 +3354,7 @@ test = [
 [package.metadata]
 requires-dist = [
     { name = "duckdb", specifier = ">=1.4.4,<2.0.0" },
-    { name = "tiozin", specifier = ">=4.1.1,<5.0.0" },
+    { name = "tiozin", specifier = ">=4.1.1" },
 ]
 
 [package.metadata.requires-dev]
