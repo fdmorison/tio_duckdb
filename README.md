@@ -20,8 +20,6 @@ runner:
   kind: tio_duckdb:DuckdbRunner
 ```
 
-Neither `runner:` block sets more than the `kind`. Arguments that a job leaves out can come from `tiozin.yaml`, the [Tiozin settings file](https://github.com/fdmorison/tiozin/blob/main/docs/settings/index.md).
-
 ## Installation
 
 `tio_duckdb` is installed as a Python dependency. Once it is installed, its plugins are available in any job.
