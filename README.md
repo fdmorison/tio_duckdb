@@ -20,6 +20,15 @@ runner:
   kind: tio_duckdb:DuckdbRunner
 ```
 
+DuckDB config options go directly in the runner:
+
+```yaml
+runner:
+  kind: DuckdbRunner
+  threads: 4
+  memory_limit: 2GB
+```
+
 ## Installation
 
 `tio_duckdb` is installed as a Python dependency. Once it is installed, its plugins are available in any job.
