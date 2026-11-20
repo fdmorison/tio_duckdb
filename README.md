@@ -4,17 +4,7 @@
 
 A family is an installable package of Tiozin plugins that share the same runtime. See [The Family Model](https://github.com/fdmorison/tiozin/blob/main/docs/concepts/family.md) for how families fit into Tiozin.
 
-## Installation
-
-The package requires Python 3.11 or later and installs Tiozin 4.x and DuckDB as dependencies. It has no extras:
-
-```bash
-pip install tio_duckdb
-```
-
-## How Tiozin Finds It
-
-Tiozin discovers the family automatically through the `tiozin.family` entry point. The family is registered as `tio_duckdb`, and its Python package is `tio_duckdb`.
+## Usage
 
 After installation, its plugins are available by class name in any job:
 
@@ -29,6 +19,69 @@ If another installed family defines a class with the same name, qualify the kind
 runner:
   kind: tio_duckdb:DuckdbRunner
 ```
+
+DuckDB config options go directly in the runner:
+
+```yaml
+runner:
+  kind: DuckdbRunner
+  threads: 4
+  memory_limit: 2GB
+```
+
+## Installation
+
+`tio_duckdb` is installed as a Python dependency. Once it is installed, its plugins are available in any job.
+
+The package has no extras, and it brings [DuckDB](https://duckdb.org/docs/) as a dependency.
+
+```bash
+pip install tio_duckdb
+```
+
+Add it to the project's dependencies, such as in `pyproject.toml`:
+
+```toml
+[project]
+dependencies = [
+  "tio_duckdb",
+]
+```
+
+## Setting Up tiozin.yaml
+
+`tiozin.yaml` is the [Tiozin settings file](https://github.com/fdmorison/tiozin/blob/main/docs/settings/index.md). It configures [registries](https://github.com/fdmorison/tiozin/blob/main/docs/settings/index.md#registries), such as the job and schema registries, and default plugin arguments under [`runtime_defaults`](https://github.com/fdmorison/tiozin/blob/main/docs/settings/index.md#runtime-defaults).
+
+The example settings use `runtime_defaults` to connect DuckdbPostgresOutput to [PostgreSQL](https://www.postgresql.org/docs/).
+
+1. Copy the `.env.example` file to `.env` at the repository root, then fill in the PostgreSQL variables in the `.env` file. The `.env` file is gitignored.
+
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Copy the `tiozin.example.yaml` file to `tiozin.yaml` at the repository root. The `tiozin.yaml` file is gitignored.
+
+   ```bash
+   cp tiozin.example.yaml tiozin.yaml
+   ```
+
+3. Find the PostgreSQL connection settings under `runtime_defaults`. They give [DuckdbPostgresOutput](https://github.com/fdmorison/tio_duckdb/blob/main/docs/postgres-output.md) its schema, database, port, and credentials. The credentials are read from environment variables:
+
+   ```yaml
+   runtime_defaults:
+
+     - kind: DuckdbPostgresOutput
+       schema: public
+       database: postgres
+       port: 5432
+       user: "{{ ENV.PGUSER | default('postgres') }}"
+       password: "{{ ENV.PGPASSWORD | default('postgres') }}"
+   ```
+
+   A job that leaves these fields out takes them from here. The `user` and `password` values come from the `PGUSER` and `PGPASSWORD` variables in the `.env` file, and fall back to `postgres` when a variable is not set.
+
+   If a job sets no `host`, DuckdbPostgresOutput reads it from the `PGHOST` variable.
 
 ## Plugins
 
