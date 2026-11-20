@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/fdmorison/tio_duckdb/compare/tio_duckdb-v0.1.0...tio_duckdb-v0.1.1) (2026-11-20)
+
+
+### Bug Fixes
+
+* require tiozin 5 ([#7](https://github.com/fdmorison/tio_duckdb/issues/7)) ([decb620](https://github.com/fdmorison/tio_duckdb/commit/decb6201de0c6d351b307e3db87dced9e6dfadbe))
+
 ## 0.1.0 (2026-11-20)
 
 
