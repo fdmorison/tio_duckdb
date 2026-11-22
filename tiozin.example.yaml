@@ -31,10 +31,12 @@ registries:
   lineage:
     kind: NoOpLineageRegistry
     description: Lineage registry for tracking data pipeline provenance
+    location: http://localhost:5000
     timeout: 5
     readonly: false
     cache: false
-    failfast: true
+    failfast: false
+    emit_level: job
 
   batch:
     kind: NoOpBatchRegistry
