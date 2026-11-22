@@ -67,6 +67,7 @@ The package also exports the base classes `DuckdbInput`, `DuckdbTransform`, `Duc
 ### Using the Family
 - [The DuckDB Family](https://github.com/fdmorison/tio_duckdb/blob/main/docs/index.md)
 - [How Data Flows Through Steps](https://github.com/fdmorison/tio_duckdb/blob/main/docs/index.md#how-data-flows-through-steps)
+- [Schemas Guide](https://github.com/fdmorison/tio_duckdb/blob/main/docs/schemas.md)
 - [Accessing the Connection in Custom Steps](https://github.com/fdmorison/tio_duckdb/blob/main/docs/index.md#accessing-the-connection)
 
 ### Tiozin

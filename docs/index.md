@@ -44,6 +44,10 @@ transforms:
 
 This view registration happens at the framework level for all inputs and transforms. Steps inherit the registered views automatically.
 
+## Schemas
+
+Every step also records the schema of the data it produces, and lineage reports its fields. When a step has a contract from the schema registry, the contract's documentation is copied onto that schema. See the [Schemas Guide](schemas.md).
+
 ## Components
 
 - [DuckdbRunner](runner.md)

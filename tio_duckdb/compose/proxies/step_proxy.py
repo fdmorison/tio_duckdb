@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING
 
 import wrapt
 from duckdb import DuckDBPyRelation
+from tiozin import Schema
 
 if TYPE_CHECKING:
     from ...typehints import DuckdbEtlStep, DuckdbPlan
@@ -53,6 +54,12 @@ class DuckdbStepProxy(wrapt.ObjectProxy):
         (such as COPY statements) in the relational namespace.
         """
         step: DuckdbEtlStep = self.__wrapped__
+        observed = Schema.from_format(
+            "duckdb", {name: str(dtype) for name, dtype, *_ in data.description}
+        )
+        contract = step.context.output_schema
+        step.context.output_schema = observed.document_from(contract) if contract else observed
+
         relation_or_command: DuckdbPlan = step.write(data)
         return self._register_view(relation_or_command)
 
@@ -64,6 +71,12 @@ class DuckdbStepProxy(wrapt.ObjectProxy):
             return relation
 
         step: DuckdbEtlStep = self.__wrapped__
+        observed = Schema.from_format(
+            "duckdb", {name: str(dtype) for name, dtype, *_ in relation.description}
+        )
+        contract = step.context.output_schema
+        step.context.output_schema = observed.document_from(contract) if contract else observed
+
         view_name = step.name
 
         step.duckdb.register(view_name, relation)
