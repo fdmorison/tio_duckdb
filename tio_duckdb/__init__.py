@@ -9,6 +9,8 @@ All other modules and classes inside this package are internal implementation
 details and may change without notice.
 """
 
+from tiozin.api.metadata.schema.converters import SchemaConverter
+
 # Public base abstractions
 from .bases import (
     DuckdbCoTransform,
@@ -24,12 +26,17 @@ from .inputs.file_input import DuckdbFileInput
 from .outputs.file_output import DuckdbFileOutput
 from .outputs.postgres_output import DuckdbPostgresOutput
 
+# Schema converters
+from .registries.schema.converters import DuckdbSchemaConverter
+
 # Runners
 from .runners.duckdb_runner import DuckdbRunner
 
 # Transforms
 from .transforms.sql_transform import DuckdbSqlTransform
 from .transforms.word_count_transform import DuckdbWordCountTransform
+
+SchemaConverter.register(DuckdbSchemaConverter())
 
 __all__ = [
     "DuckdbInput",
