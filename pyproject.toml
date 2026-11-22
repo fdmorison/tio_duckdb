@@ -20,7 +20,7 @@ classifiers = [
 ]
 
 dependencies = [
-  "tiozin >=5.0.0",
+  "tiozin >=6.0.0",
   "duckdb >=1.4.4,<2.0.0",
 ]
 
