@@ -11,11 +11,6 @@ install:
 	@rm -rf .venv
 	@uv sync
 	@uv pip install -e .
-
-install-dev:
-	@rm -rf .venv
-	@uv sync
-	@uv pip install -e .
 	@uv run pre-commit install
 	@rm -rf *.egg-info
 
