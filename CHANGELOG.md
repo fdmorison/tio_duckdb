@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/fdmorison/tio_duckdb/compare/tio_duckdb-v0.1.1...tio_duckdb-v0.1.2) (2026-11-22)
+
+
+### Features
+
+* **tio_duckdb:** Record the output schema of each step ([#9](https://github.com/fdmorison/tio_duckdb/issues/9)) ([970ff93](https://github.com/fdmorison/tio_duckdb/commit/970ff93c889b8d22f49e064da2f12e782f462e42))
+
 ## [0.1.1](https://github.com/fdmorison/tio_duckdb/compare/tio_duckdb-v0.1.0...tio_duckdb-v0.1.1) (2026-11-20)
 
 

@@ -1,6 +1,6 @@
 [project]
 name = "tio_duckdb"
-version = "0.1.1"
+version = "0.1.2"
 description = "DuckDB family for Tiozin, your friendly ETL framework"
 readme = "README.md"
 requires-python = ">=3.11"
